@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcrypt';
+import crypto from 'crypto-js';
 
 import prismaDB from '../../../../../libs/prismadb';
 
@@ -18,18 +18,18 @@ export async function POST(req: Request) {
     if (!password) {
       return new NextResponse('Password is required', { status: 400 });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log('kaka');
+    const hashedPassword = crypto.AES.encrypt(
+      password as string,
+      'secretKey'
+    ).toString();
 
     const user = await prismaDB.user.create({
       data: {
         email: email,
         password: hashedPassword,
         name: name,
-        role: {
-          admin: isCorrectSpecialCode ? true : false,
-          user: isCorrectSpecialCode ? false : true,
-        },
+        role: isCorrectSpecialCode ? 'ADMIN' : 'USER',
       },
     });
 

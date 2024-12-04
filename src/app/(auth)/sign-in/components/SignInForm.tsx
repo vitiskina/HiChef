@@ -1,12 +1,9 @@
 'use client';
-
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { CardContent } from '@/components/ui/card';
 import {
@@ -21,12 +18,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { KEYS, setLS } from '../../../../../utils/localStorageService';
+import { signIn } from '@/auth';
+import { loginWithCreds } from '../../../../../actions/auth';
 
 const passwordValidation = new RegExp(
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
 );
 
-const formLoginSchema = z.object({
+export const formLoginSchema = z.object({
   email: z.string().min(2).max(50),
   password: z.string().min(2).regex(passwordValidation, {
     message:
@@ -34,10 +33,7 @@ const formLoginSchema = z.object({
   }),
 });
 
-export function LoginForm() {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
+export function SignInForm() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formLoginSchema>>({
     resolver: zodResolver(formLoginSchema),
@@ -49,21 +45,11 @@ export function LoginForm() {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formLoginSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
     try {
-      setLoading(true);
-
-      await axios.post('/api/login', values);
-      setLS(KEYS.USER_ID, 'true');
-      router.refresh();
-      router.push(`/`);
+      loginWithCreds(values);
       toast.success('login successfully');
     } catch (error) {
       toast.error('Something went wrong');
-    } finally {
-      setLoading(false);
     }
   };
 

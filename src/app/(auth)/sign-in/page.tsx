@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,10 +8,15 @@ import {
 } from '@/components/ui/card';
 
 import React from 'react';
+import { SignInForm } from './components/SignInForm';
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
 
-import { LoginForm } from './components/LoginForm';
+const SignIn = async () => {
+  const session = (await auth()) as Session;
 
-const Login = () => {
+  session?.user?.id && redirect('/dashboard');
+
   return (
     <div className="flex h-screen overflow-auto items-center justify-center">
       <Card className="lg:w-1/3 md:w-3/4 w-dvw mx-6 md:mx-0">
@@ -22,11 +25,11 @@ const Login = () => {
             Login to see delicious recipes
           </CardTitle>
         </CardHeader>
-        <LoginForm />
+        <SignInForm />
         {/* <CardFooter></CardFooter> */}
       </Card>
     </div>
   );
 };
 
-export default Login;
+export default SignIn;

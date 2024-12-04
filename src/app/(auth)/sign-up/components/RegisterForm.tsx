@@ -45,7 +45,7 @@ const formRegisterSchema = z
     path: ['confirmPassword'],
   });
 
-export function RegisterForm() {
+export function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
