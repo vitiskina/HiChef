@@ -1,7 +1,7 @@
 'use client';
 import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import React, { useEffect } from 'react';
-import { SignUpForm } from './components/RegisterForm';
+import { SignUpForm } from './components/SignUpForm';
 
 const SignUp = () => {
   return (

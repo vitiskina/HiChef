@@ -18,16 +18,8 @@ const SignIn = async () => {
   session?.user?.id && redirect('/dashboard');
 
   return (
-    <div className="flex h-screen overflow-auto items-center justify-center">
-      <Card className="lg:w-1/3 md:w-3/4 w-dvw mx-6 md:mx-0">
-        <CardHeader>
-          <CardTitle className="text-2xl">
-            Login to see delicious recipes
-          </CardTitle>
-        </CardHeader>
-        <SignInForm />
-        {/* <CardFooter></CardFooter> */}
-      </Card>
+    <div className="flex h-screen overflow-auto items-center justify-center px-6">
+      <SignInForm />
     </div>
   );
 };

@@ -65,7 +65,6 @@ export function SignUpForm() {
   const onSubmit = async (values: z.infer<typeof formRegisterSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
     try {
       setLoading(true);
 

@@ -9,22 +9,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-
-  if (!session) {
-    redirect('/sign-in');
-  }
-
-  const userId = session?.user?.id;
-  const user = await prismaDB.user.findFirst({
-    where: {
-      id: userId,
-    },
-  });
-
-  if (user) {
-    redirect('/dashboard');
-  }
-
-  return <>{children}</>;
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      {children}
+    </SidebarProvider>
+  );
 }

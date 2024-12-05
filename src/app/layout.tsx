@@ -3,6 +3,9 @@ import { ToastProvider } from '../../providers/toast-provider';
 import './globals.css';
 import { auth } from '@/auth';
 
+import prismaDB from '../../libs/prismadb';
+import { redirect } from 'next/navigation';
+
 export default async function RootLayout({
   children,
 }: Readonly<{

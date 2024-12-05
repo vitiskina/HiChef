@@ -43,7 +43,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new Error('Invalid credentials.');
           }
 
-          console.log(passwordDecrypt, credentials.password, 'lalala');
           if (credentials.password !== passwordDecrypt) {
             throw new Error('Invalid email or password');
           }

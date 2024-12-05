@@ -18,7 +18,6 @@ export async function POST(req: Request) {
     if (!password) {
       return new NextResponse('Password is required', { status: 400 });
     }
-    console.log('kaka');
     const hashedPassword = crypto.AES.encrypt(
       password as string,
       'secretKey'
